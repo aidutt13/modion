@@ -3,6 +3,10 @@
 
 int32_t main()
 {
-    std::cout << Modrinth::raw_search("Create") << std::endl;
+    auto mods = Modion::Modrinth::search("create");
+
+    std::cout << Modion::Modrinth::get_mod(mods[0].id).title << std::endl;
+
+
     return 0;
 }

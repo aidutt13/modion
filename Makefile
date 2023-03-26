@@ -18,7 +18,7 @@ JSONS := $(subst /,_,$(OBJ))
 
 $(TARGET): $(OBJ)
 	@mkdir -p $(@D)
-	$(shell sed -e '1s/^/[\n/' -e '$$s/,$$/\n]/' $(BUILDDIR)/json/*.o.json > $(BUILDDIR)/compile_commands.json)
+	$(shell sed -e '1s/^/[\n/' -e '$$s/,$$/\n]/' $(BUILDDIR)/json/*.o.json > $(BUILDDIR)/__compile_commands.json)
 	$(CXX) $(CXXFLAGS) $(LIBS) -o $@ $^
 
 $(BUILDDIR)/%.o: $(SRCDIR)/%.$(EXT)
@@ -28,9 +28,9 @@ $(BUILDDIR)/%.o: $(SRCDIR)/%.$(EXT)
 .PHONY: clean debug release run
 
 clean:
-	rm -f $(BUILDDIR)/*.o $(BUILDDIR)/*/*.o $(BUILDDIR)/json/*.json $(TARGET)
+	@rm -f $(BUILDDIR)/*.o $(BUILDDIR)/*/*.o $(BUILDDIR)/json/*.json $(TARGET) $(BUILDDIR)/__compile_commands.json
 
-debug: CXXFLAGS += -g
+debug: CXXFLAGS += -g -D MODION_DEBUG
 debug: $(TARGET)
 
 release: CXXFLAGS += -O3
