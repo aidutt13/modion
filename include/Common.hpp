@@ -12,6 +12,23 @@ namespace Modion
         Quilt
     };
 
+    inline std::ostream &operator<<(std::ostream &os, const Loader &loader)
+    {
+        switch (loader)
+        {
+        case Loader::Forge:
+            os << "forge";
+            break;
+        case Loader::Fabric:
+            os << "fabric";
+            break;
+        case Loader::Quilt:
+            os << "quilt";
+            break;
+        }
+        return os;
+    }
+
     struct GameVersion
     {
         uint32_t major;
@@ -60,6 +77,17 @@ namespace Modion
         std::string name;
         std::vector<Loader> loaders;
         std::vector<std::string> file_urls;
+    };
+
+    struct VersionFile
+    {
+        std::string id = "";
+        std::string filename = "";
+        std::string url = "";
+        std::string hash = "";
+        std::string mod_version = "";
+
+        VersionFile() = default;
     };
 
 } // namespace Modion
